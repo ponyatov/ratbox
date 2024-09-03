@@ -25,7 +25,7 @@ C += $(wildcard src/*.c*) $(wildcard $(MODULE)/*.c*)
 H += $(wildcard inc/*.h*) $(wildcard $(MODULE)/*.h*)
 A += $(wildcard $(MODULE)/*.ino)
 
-PACKAGES += $(wildcard lib/*.in)
+BINS += $(wildcard lib/*.bin)
 
 # cfg
 CFLAGS += -Iinc -Isrc -Itmp -DLinux
@@ -33,7 +33,7 @@ CFLAGS += -O0 -ggdb
 
 # all
 .PHONY: all
-all: bin/$(MODULE) $(PACKAGES)
+all: bin/$(MODULE) $(BINS)
 	$^
 
 # format
@@ -48,6 +48,9 @@ bin/$(MODULE): $(C) $(H)
 $(MODULE)/parser.cpp: src/$(MODULE).ragel
 	ragel -G2 -o $@ $<
 
+lib/%.bin: lib/%.hex Makefile
+	xxd -r -p $< $@ && hexdump -C $@
+
 # doc
 .PHONY: doxy
 doxy: .doxygen $(C) $(H) $(A) README.md
@@ -55,10 +58,13 @@ doxy: .doxygen $(C) $(H) $(A) README.md
 
 .PHONY: doc
 doc: \
-	doc/$(RAGEL_PDF)
+	doc/$(RAGEL_PDF) doc/1986/LDM-HELPER-K1986BE1QI.pdf
 
 doc/$(RAGEL_PDF):
 	$(CURL) $@ $(RAGEL_URL)/$(RAGEL_PDF)
+
+doc/1986/LDM-HELPER-K1986BE1QI.pdf:
+	$(CURL) $@ https://ldm-systems.ru/f/doc/catalog/LDM-HELPER-K1986BE1QI-FULL/LDM-HELPER-K1986BE1QI.pdf
 
 # install
 .PHONY: install update ref gz
