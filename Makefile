@@ -27,6 +27,10 @@ A += $(wildcard $(MODULE)/*.ino)
 
 PACKAGES += $(wildcard lib/*.in)
 
+# cfg
+CFLAGS += -Iinc -Isrc -Itmp -DLinux
+CFLAGS += -O0 -ggdb
+
 # all
 .PHONY: all
 all: bin/$(MODULE) $(PACKAGES)
