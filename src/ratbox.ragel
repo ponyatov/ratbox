@@ -1,3 +1,27 @@
 /// @file
 /// @brief RatBox binary protocol parser (`ragel`)
 /// @details https://www.colm.net/open-source/ragel/
+
+// include common "common.rl";
+
+// # unsigned alphabet
+
+// action mark {
+// 	m.pb = m.p
+// }
+
+%%{
+
+  machine RatBox;
+
+  alphtype unsigned char;
+
+  mac = 0x12 0x34 0x56;
+
+  main := |*
+    mac => {};
+  *|;
+
+}%%
+
+%% write data;

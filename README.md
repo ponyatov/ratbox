@@ -3,7 +3,7 @@
 
 (by) Dmitry Ponyatov <<dponyatov@gmail.com>> 2024
 
-telegram: @dponyatov
+telegram: `@dponyatov`
 
 github: https://github.com/ponyatov/ratbox
 

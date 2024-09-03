@@ -10,6 +10,7 @@
 #include <cstdio>
 #endif
 #include <cstdint>
+#include <cassert>
 
 /// @defgroup config config
 
@@ -40,7 +41,14 @@ extern void arg(int argc, char argv[]);
 /// @ingroup arduino
 class RatBox {
    public:
-    RatBox(const uint8_t mac[6] = MAC);
+    /// @name constructor
+    /// @brief default constructor
+    RatBox();
+    /// @brief depricated by `ragel` definition
+    RatBox(const uint8_t mac[6]);  // = MAC);
+    /// @brief constructor from binary file
+    RatBox(char *binfile);
+    /// @brief destructor
     ~RatBox();
 
     /// @brief minimal package length, bytes
@@ -48,7 +56,15 @@ class RatBox {
     /// @brief maximal package length, bytes
     static const int PKG_MAX_LEN = 20;
 
+    /// @brief restart & move to init state
+    void restart();  // { inp=0; }
+
    private:
     /// @brief package input buffer
     uint8_t in[PKG_MAX_LEN];
+    /// @brief input pointer
+    uint8_t inp;
+
+    /// @brief input file handler
+    FILE *fin;
 };
