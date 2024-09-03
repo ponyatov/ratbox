@@ -1,5 +1,5 @@
 /// @file
-/// @brief RatBox protocol processor (`ragel`)
+/// @brief RatBox protocol processor
 
 #pragma once
 
@@ -22,9 +22,19 @@ extern const uint8_t MAC[6];
 
 /// @defgroup host host
 /// @brief on-host debug
+/// @{
 
+/// @brief program entry point
+/// @param[in] argc number of command line arguments
+/// @param[in] argv [program binary file + arguments]
 extern int main(int argc, char *argv[]);
+
+/// @brief print command line argument
+/// @param[in] argc index
+/// @param[in] argv value
 extern void arg(int argc, char argv[]);
+
+/// @}
 
 /// @brief Arduino API object
 /// @ingroup arduino
@@ -33,9 +43,12 @@ class RatBox {
     RatBox(const uint8_t mac[6] = MAC);
     ~RatBox();
 
-    static const int PKG_MAX_LEN = 0x10;
+    /// @brief minimal package length, bytes
+    static const int PKG_MIN_LEN = 10;
+    /// @brief maximal package length, bytes
+    static const int PKG_MAX_LEN = 20;
 
    private:
-    /// @brief maximal package length, bytes
-    uint8_t buf[PKG_MAX_LEN];
+    /// @brief package input buffer
+    uint8_t in[PKG_MAX_LEN];
 };

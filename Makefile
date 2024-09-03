@@ -45,6 +45,8 @@ tmp/format_cpp: $(C) $(H) $(A)
 # rule
 bin/$(MODULE): $(C) $(H)
 	$(CXX) $(CFLAGS) -o $@ $(C)
+$(MODULE)/parser.cpp: src/$(MODULE).ragel
+	ragel -G2 -o $@ $<
 
 # doc
 .PHONY: doxy
