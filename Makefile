@@ -48,13 +48,17 @@ bin/$(MODULE): $(C) $(H)
 $(MODULE)/parser.cpp: src/$(MODULE).ragel
 	ragel -G2 -o $@ $<
 
-lib/%.bin: lib/%.hex Makefile
+lib/%.bin: lib/%.hex
 	xxd -r -p $< $@ && hexdump -C $@
 
 # doc
 .PHONY: doxy
-doxy: .doxygen $(C) $(H) $(A) README.md
-	rm -rf docs ; doxygen $< 1>/dev/null
+doxy: .doxygen doc/DoxygenLayout.xml $(C) $(H) $(A) README.md
+	rm -rf docs
+	MODULE=$(MODULE) REL="$(REL)" BRANCH=$(BRANCH) NOW=$(NOW) \
+		doxygen $< 1>/dev/null
+doc/DoxygenLayout.xml:
+	cd doc ; doxygen -l
 
 .PHONY: doc
 doc: \

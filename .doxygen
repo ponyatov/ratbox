@@ -1,8 +1,10 @@
-PROJECT_NAME           = "ratbox"
+PROJECT_NAME           = $(MODULE)
+PROJECT_NUMBER         = ver: $(REL)-$(BRANCH) ($(NOW))
 PROJECT_BRIEF          = "https://freelance.habr.com/tasks/592676"
 HTML_OUTPUT            = docs
 OUTPUT_DIRECTORY       =
-INPUT                  = README.md src inc ratbox
+INPUT                  = inc src tmp $(MODULE) README.md
+INCLUDE_PATH           = inc src tmp $(MODULE)
 EXCLUDE                = ref/*
 WARN_IF_UNDOCUMENTED   = NO
 RECURSIVE              = YES

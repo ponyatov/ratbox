@@ -8,4 +8,10 @@ telegram: `@dponyatov`
 github: https://github.com/ponyatov/ratbox
 
 
-`ragel` parser generator: https://www.colm.net/open-source/ragel/
+## `ragel` parser & state machine generator
+
+https://www.colm.net/open-source/ragel/
+
+- http://thingsaaronmade.com/blog/a-simple-intro-to-writing-a-lexer-with-ragel.html
+- https://ekhabarov.com/post/ragel-state-machine-compiler/
+- https://deskthority.net/viewtopic.php?t=18198

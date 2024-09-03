@@ -21,11 +21,12 @@ void arg(int argc, char argv[]) {  //
 #endif
 
 void RatBox::restart() {
-    inp = 0;
-    if (fin) {
-        fclose(fin);
-        fin = nullptr;
-    }
+    if (fin) {          // \ clean up files
+        fclose(fin);    //
+        fin = nullptr;  //
+    }                   // /
+    if (in) free(in);   // dealloc buffer memory
+    inp = 0;            // reset input pointer
 }
 
 RatBox::~RatBox() { restart(); }
@@ -34,4 +35,6 @@ RatBox::RatBox() { restart(); }
 
 // RatBox::RatBox(const uint8_t mac[6]) : RatBox() { depricated with `ragel` }
 
-RatBox::RatBox(char *binfile) { assert(fin = fopen(binfile, "rb")); }
+RatBox::RatBox(char *binfile) {  //
+    assert(fin = fopen(binfile, "rb"));
+}

@@ -61,10 +61,10 @@ class RatBox {
 
    private:
     /// @brief package input buffer
-    uint8_t in[PKG_MAX_LEN];
+    /// (static or dynamic allocated with mmap)
+    uint8_t *in;
     /// @brief input pointer
     uint8_t inp;
-
     /// @brief input file handler
     FILE *fin;
 };
