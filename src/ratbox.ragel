@@ -7,24 +7,32 @@
 /// @details https://www.colm.net/open-source/ragel/
 /// @{
 
+#include "ratbox.hpp"
+
 %%{
 
     machine RatBox;
 
-    alphtype unsigned char;
+    alphtype unsigned char; # uint8_t
 
-    mac = 0x12 0x34 0x56;
+    mac     = 0x12 0x34 0x56 0x78 0x9A 0xBC; # @ref MAC[6] address
+    len     = 10 .. 20;                      # PKG_MIN_LEN .. PKG_MAX_LEN
+    payload = any;
+    uuid    = any;
+    chksum  = any;
 
     main := |*
-        mac => {};
+        mac     => { token("    mac"); };
+        len     => { token("    len"); };
+        payload => { token("payload"); };
+           uuid => { token("   uuid"); };
+         chksum => { token(" chksum"); };
     *|;
-
 }%%
 
 %% write data;
 
-/// @param[in] p packet start
-void RatBox::parse(char *p) {
+void RatBox::parse() {
     %%write init;
     %%write exec;
 }
